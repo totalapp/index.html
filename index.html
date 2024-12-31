@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+    <style>
+        :root {
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --icon-bg-color: #f0f0f0;
+            --icon-border-color: #00aaff;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-color: #121212;
+                --text-color: #ffffff;
+                --icon-bg-color: #1f1f1f;
+                --icon-border-color: #bb86fc;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        #splash {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--background-color);
+            z-index: 9999;
+        }
+
+        #main-content {
+            display: none;
+            padding-top: 5px;
+            text-align: auto;
+        }
+
+        .app-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex;
+            gap: 15px;
+            padding: 15px;
+            margin: 0;
+            max-width:481px;
+        }
+
+        .icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s;
+            background-color: var(--icon-bg-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 4px solid var(--icon-border-color);
+            text-align: center;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
+        .icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .category-link {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .history {
+            margin-top: 15px;
+        }
+
+        .history h3 {
+            text-align: center;
+            width: 100%;
+        }
+
+        .app-name {
+            margin-top: 3px;
+            font-size: 8px;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .search-container {
+            margin-left: 15px;
+            margin-right: 15px;
+            text-align: auto;
+            display: auto;
+            justify-content: auto;
+            gap: 8px;
+            max-width: 100%;
+        }
+
+        .search-bar {
+            padding: 8px;
+            font-size: 16px;
+            width: 70%;
+            max-width: 385px;
+            border-radius: 20px;
+            border: 1px solid var(--icon-border-color);
+        }
+
+        .search-button {
+            padding: 8px 16px;
+            font-size: 16px;
+            background-color: var(--icon-border-color);
+            border: none;
+            color: #fff;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #0077cc;
+        }
+    </style>
+</head>
+<body> <center>
+
+    <!-- Splash Screen -->
+    <div id="splash">
+        <h1>Total App</h1>
+    </div>
+
+    <div class="separator" style="clear: both;"><a href="https://totalapp.github.io/index.html/" style="display: block; padding: 1em 0px; text-align: center;"><img alt="" border="0" data-original-height="400" data-original-width="1280" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhQJ2o_2l1rXP2ZeaqllbN7c09lCMIgd8RPV_HLg97N3wlURDdYAuKf3qTJo9A3BwbrYdKnuncXLbo7RZvuuGtogZbQp1SlJrSn75eoJBgp-IhZwt5PnoTD-ykcvMAwHzSG-VNmtpy2WGM7F5quAXfygeVFbgaHB1ON8MFv4_0g1ByEY9I8diF7J8oT/s320/1000005751.png" width="320" /></a></div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <input id="search-input" class="search-bar" type="text" placeholder="Search..." />
+        <button id="search-button" class="search-button">Search</button>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content"></div>
+
+    </center>
+
+    <script>
+        const categories = {
+            shopping: [
+                { name: 'Amazon', icon: 'https://via.placeholder.com/60', link: 'https://amazon.com' },
+                { name: 'flipkart', icon: 'https://via.placeholder.com/60', link: 'https://flipkart.com' },
+                { name: 'myntra', icon: 'https://via.placeholder.com/60', link: 'https://amazon.com' },
+                { name: 'eBay', icon: 'https://via.placeholder.com/60', link: 'https://ebay.com' }
+            ],
+            food: [
+                { name: 'Uber Eats', icon: 'https://via.placeholder.com/60', link: 'https://ubereats.com' },
+                { name: 'DoorDash', icon: 'https://via.placeholder.com/60', link: 'https://doordash.com' }
+            ],
+            games: [
+                { name: 'Clash royals', icon: 'https://via.placeholder.com/60', link: 'https://clashroyale.com' },
+                { name: 'Among Us', icon: 'https://via.placeholder.com/60', link: 'https://innersloth.com/among-us/' }
+            ],
+            beauty: [
+                { name: 'Sephora', icon: 'https://via.placeholder.com/60', link: 'https://sephora.com' },
+                { name: 'Ulta', icon: 'https://via.placeholder.com/60', link: 'https://ulta.com' }
+            ],
+            travel: [
+                { name: 'Airbnb', icon: 'https://via.placeholder.com/60', link: 'https://airbnb.com' },
+                { name: 'Booking.com', icon: 'https://via.placeholder.com/60', link: 'https://booking.com' }
+            ]
+        };
+
+        const COOKIE_NAME = 'recentApps';
+        const recentAppsLimit = 12;  // You can easily edit this number to change the limit
+
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/`;
+        }
+
+        function getCookie(name) {
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                cookie = cookie.trim();
+                if (cookie.startsWith(`${name}=`)) {
+                    return decodeURIComponent(cookie.substring(name.length + 1));
+                }
+            }
+            return null;
+        }
+
+        let recentApps = JSON.parse(getCookie(COOKIE_NAME)) || [];
+
+        function addToRecent(app) {
+            recentApps = recentApps.filter(a => a.name !== app.name);
+            recentApps.unshift(app);
+            if (recentApps.length > recentAppsLimit) {
+                recentApps.pop();
+            }
+            setCookie(COOKIE_NAME, JSON.stringify(recentApps), 30);
+            renderRecentApps();
+        }
+
+        function renderRecentApps() {
+            let recentSection = document.getElementById('recent-section');
+            if (!recentSection) {
+                recentSection = document.createElement('div');
+                recentSection.id = 'recent-section';
+                recentSection.classList.add('history');
+
+                const container = document.createElement('div');
+                container.classList.add('app-container');
+                container.id = 'recent-container';
+                recentSection.appendChild(container);
+
+                const mainContent = document.getElementById('main-content');
+                mainContent.prepend(recentSection);
+            }
+
+            const recentContainer = document.getElementById('recent-container');
+            recentContainer.innerHTML = '';
+
+            recentApps.slice(0, recentAppsLimit).forEach(app => {
+                const iconDiv = document.createElement('div');
+                iconDiv.classList.add('icon');
+                iconDiv.onclick = () => {
+                    window.location.href = app.link;
+                };
+
+                const img = document.createElement('img');
+                img.src = app.icon;
+                img.alt = app.name;
+
+                const nameLabel = document.createElement('div');
+                nameLabel.classList.add('app-name');
+                nameLabel.textContent = app.name;
+
+                iconDiv.appendChild(img);
+                iconDiv.appendChild(nameLabel);
+                recentContainer.appendChild(iconDiv);
+            });
+        }
+
+        function loadCategory(category) {
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = '';
+
+            renderRecentApps();
+
+            const categoryApps = categories[category];
+            if (categoryApps) {
+                const section = document.createElement('div');
+                section.classList.add('history');
+
+                const container = document.createElement('div');
+                container.classList.add('app-container');
+
+                categoryApps.forEach(app => {
+                    const iconDiv = document.createElement('div');
+                    iconDiv.classList.add('icon');
+                    iconDiv.onclick = () => {
+                        addToRecent(app);
+                        window.location.href = app.link;
+                    };
+
+                    const img = document.createElement('img');
+                    img.src = app.icon;
+                    img.alt = app.name;
+
+                    const nameLabel = document.createElement('div');
+                    nameLabel.classList.add('app-name');
+                    nameLabel.textContent = app.name;
+
+                    iconDiv.appendChild(img);
+                    iconDiv.appendChild(nameLabel);
+                    container.appendChild(iconDiv);
+                });
+
+                section.appendChild(container);
+                mainContent.appendChild(section);
+            } else {
+                mainContent.textContent = 'Category not found.';
+            }
+        }
+
+        function searchApps(searchTerm) {
+            const allApps = [
+                ...categories.shopping,
+                ...categories.food,
+                ...categories.games,
+                ...categories.beauty,
+                ...categories.travel,
+            ];
+
+            const filteredApps = allApps.filter(app => app.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = '';
+
+            renderRecentApps();
+
+            if (filteredApps.length > 0) {
+                const section = document.createElement('div');
+                section.classList.add('history');
+
+                const heading = document.createElement('h3');
+                heading.textContent = 'Search Results';
+                section.appendChild(heading);
+
+                const container = document.createElement('div');
+                container.classList.add('app-container');
+
+                filteredApps.forEach(app => {
+                    const iconDiv = document.createElement('div');
+                    iconDiv.classList.add('icon');
+                    iconDiv.onclick = () => {
+                        addToRecent(app);
+                        window.location.href = app.link;
+                    };
+
+                    const img = document.createElement('img');
+                    img.src = app.icon;
+                    img.alt = app.name;
+
+                    const nameLabel = document.createElement('div');
+                    nameLabel.classList.add('app-name');
+                    nameLabel.textContent = app.name;
+
+                    iconDiv.appendChild(img);
+                    iconDiv.appendChild(nameLabel);
+                    container.appendChild(iconDiv);
+                });
+
+                section.appendChild(container);
+                mainContent.appendChild(section);
+            } else {
+                const section = document.createElement('div');
+                section.classList.add('history');
+
+                const heading = document.createElement('h3');
+                heading.textContent = 'No results found';
+                section.appendChild(heading);
+
+                mainContent.appendChild(section);
+            }
+        }
+
+        function loadDefaultCategory() {
+            const mainContent = document.getElementById('main-content');
+            mainContent.innerHTML = '';
+
+            renderRecentApps();
+        }
+
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('splash').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+
+                const searchParam = new URLSearchParams(window.location.search).get('search');
+                const categoryParam = new URLSearchParams(window.location.search).get('all');
+
+                if (searchParam) {
+                    searchApps(searchParam);
+                } else if (categoryParam) {
+                    loadCategory(categoryParam);
+                } else {
+                    loadDefaultCategory();
+                }
+            }, 3000);
+        };
+
+        // Search button functionality
+        document.getElementById('search-button').onclick = function() {
+            const query = document.getElementById('search-input').value.trim();
+            if (query) {
+                window.location.href = `${window.location.origin}?search=${encodeURIComponent(query)}`;
+            }
+        };
+
+        // Press Enter to search functionality
+        document.getElementById('search-input').onkeypress = function(event) {
+            if (event.key === 'Enter') {
+                const query = document.getElementById('search-input').value.trim();
+                if (query) {
+                    window.location.href = `https://totalapp.github.io/index.html/?search=${encodeURIComponent(query)}`;
+                }
+            }
+        };
+    </script>
+</body>
+</html>
