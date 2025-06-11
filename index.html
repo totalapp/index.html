@@ -393,7 +393,7 @@
         document.getElementById('search-button').onclick = function() {
             const query = document.getElementById('search-input').value.trim();
             if (query) {
-                window.location.href = `${window.location.origin}/index.html?search=${encodeURIComponent(query)}`;
+                window.location.href = `https://totalapp.github.io/index.html?search=${encodeURIComponent(query)}`;
             }
         };
 
@@ -402,7 +402,7 @@
             if (event.key === 'Enter') {
                 const query = document.getElementById('search-input').value.trim();
                 if (query) {
-                    window.location.href = `https://totalapp.github.io/index.html/?search=${encodeURIComponent(query)}`;
+                    window.location.href = `https://totalapp.github.io/index.html?search=${encodeURIComponent(query)}`;
                 }
             }
         };
